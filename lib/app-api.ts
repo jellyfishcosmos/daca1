@@ -213,4 +213,4 @@ gameEndpoint.addMethod(
   "DELETE",
   new apig.LambdaIntegration(deleteGameFn, { proxy: true }),
 );
-
+  }}
