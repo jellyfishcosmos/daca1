@@ -4,10 +4,14 @@ import { Construct } from "constructs";
 import * as apig from "aws-cdk-lib/aws-apigateway";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as node from "aws-cdk-lib/aws-lambda-nodejs";
+import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
+import * as iam from "aws-cdk-lib/aws-iam";
 
 type AppApiProps = {
   userPoolId: string;
   userPoolClientId: string;
+  gamesTable: dynamodb.Table;
+  gameCompanyTable: dynamodb.Table;
 };
 
 export class AppApi extends Construct {
@@ -15,9 +19,12 @@ export class AppApi extends Construct {
     super(scope, id);
 
     const appApi = new apig.RestApi(this, "AppApi", {
-      description: "App RestApi",
+      description: "Formula 1 App RestApi",
       endpointTypes: [apig.EndpointType.REGIONAL],
       defaultCorsPreflightOptions: {
+        allowHeaders: ["Content-Type", "X-Amz-Date"],
+        allowMethods: ["OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE"], //adding options for db manipulation
+        allowCredentials: true,
         allowOrigins: apig.Cors.ALL_ORIGINS,
       },
     });
@@ -29,6 +36,8 @@ export class AppApi extends Construct {
       runtime: lambda.Runtime.NODEJS_16_X,
       handler: "handler",
       environment: {
+        GAMES_TABLE:props.gamesTable.tableName,
+        GAMECOMPANY_TABLE: props.gameCompanyTable.tableName,
         USER_POOL_ID: props.userPoolId,
         CLIENT_ID: props.userPoolClientId,
         REGION: cdk.Aws.REGION,
