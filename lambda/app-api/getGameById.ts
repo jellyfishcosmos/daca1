@@ -1,7 +1,7 @@
 import { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, GetCommand } from "@aws-sdk/lib-dynamodb";
-import { gameCompanies } from '../../seed/games';  // Assuming `gameCompanies` is an array similar to `movieCasts`
+import { gameCompanies } from '../../seed/games';  
 
 const ddbDocClient = createDDbDocClient();
 
@@ -93,7 +93,6 @@ function createDDbDocClient() {
 
 // Get the companies associated with a specific gameId
 function getGameCompanies(gameId: number) {
-  // Assuming `gameCompanies` is an array of company objects with a `gameId` field
   return gameCompanies.filter(company => company.gameId === gameId);
 }
 
