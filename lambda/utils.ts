@@ -51,16 +51,28 @@ import {
     region: string
   ): Promise<JwtToken> => {
     try {
-      const url = `https://cognito-idp.${region}.amazonaws.com/${userPoolId}/.well-known/jwks.json`;
-      const { data }: { data: Jwk } = await axios.get(url);
-      const pem = jwkToPem(data.keys[0]);
-  
-      return jwt.verify(token, pem, { algorithms: ["RS256"] });
+      const decodedHeader = jwt.decode(token, { complete: true }) as { header: { kid: string } } | null;
+
+        if (!decodedHeader || !decodedHeader.header) {
+            throw new Error("Invalid token");
+        }
+
+        const kid = decodedHeader.header.kid;
+        const url = `https://cognito-idp.${region}.amazonaws.com/${userPoolId}/.well-known/jwks.json`;
+        const { data }: { data: Jwk } = await axios.get(url);
+
+        const key = data.keys.find(key => key.kid === kid);
+        if (!key) {
+            throw new Error("No matching key found");
+        }
+
+        const pem = jwkToPem(key);
+        return jwt.verify(token, pem, { algorithms: ["RS256"] }) as JwtToken;
     } catch (err) {
-      console.log(err);
-      return null;
+        console.error("Token verification failed:", err);
+        return null;
     }
-  };
+};
   
   export const createPolicy = (
     event: APIGatewayAuthorizerEvent,
