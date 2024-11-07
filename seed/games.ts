@@ -5,7 +5,7 @@ export const games: Game[] = [
     adult: false,
     backdrop_path: '/sRLC052ieEzkQs9dEtPMfFxYkej.jpg',
     genre_ids: [ 1, 2 ], // Action, RPG
-    id: 1234,
+    gameId: 1234,
     original_language: 'en',
     original_title: 'Starfield',
     overview: 'In Starfield, players can explore a vast open universe, join factions, and shape the fate of humanity in a story of exploration and discovery. Customize your own ship and travel through hundreds of star systems in a galaxy filled with opportunities.',
@@ -21,7 +21,7 @@ export const games: Game[] = [
     adult: false,
     backdrop_path: '/jXJxMcVoEuXzym3vFnjqDW4ifo6.jpg',
     genre_ids: [ 1, 5 ], // Action, Fantasy
-    id: 2345,
+    gameId: 2345,
     original_language: 'en',
     original_title: 'The Legend of Zelda: Tears of the Kingdom',
     overview: "Link sets out on a dangerous journey to discover the truth behind mysterious forces threatening Hyrule. With new abilities and allies, players explore both the surface and the skies above in a massive, open world.",
@@ -37,7 +37,7 @@ export const games: Game[] = [
     adult: false,
     backdrop_path: '/5a4JdoFwll5DRtKMe7JLuGQ9yJm.jpg',
     genre_ids: [ 3, 1 ], // Simulation, Action
-    id: 695721,
+    gameId: 695721,
     original_language: 'en',
     original_title: 'Baldur\'s Gate 3',
     overview: 'A grand RPG set in the Dungeons & Dragons universe, Baldur\'s Gate 3 lets players create their own characters, navigate complex dialogue choices, and take part in epic battles. Choose between solo or co-op campaigns in a rich fantasy world.',
@@ -53,7 +53,7 @@ export const games: Game[] = [
     adult: false,
     backdrop_path: '/15Fe18IglCCP1jJoj5F529on0IA.jpg',
     genre_ids: [ 1, 4 ], // Action, Puzzle
-    id: 1029575,
+    gameId: 1029575,
     original_language: 'en',
     original_title: 'Spider-Man 2',
     overview: "Peter Parker and Miles Morales team up in this high-octane action-adventure game. Explore a vast open-world NYC, battle iconic villains, and experience a gripping story with dynamic web-swinging mechanics.",
@@ -69,7 +69,7 @@ export const games: Game[] = [
     adult: false,
     backdrop_path: '/bmlkLCjrIWnnZzdAQ4uNPG9JFdj.jpg',
     genre_ids: [ 2, 5 ], // RPG, Fantasy
-    id: 787699,
+    gameId: 787699,
     original_language: 'en',
     original_title: 'Diablo IV',
     overview: 'Diablo IV takes players back to the world of Sanctuary. With a darker story, players can choose between several classes to explore vast regions, battle demonic forces, and uncover the secrets of the new Diablo storyline.',
@@ -85,7 +85,7 @@ export const games: Game[] = [
     adult: false,
     backdrop_path: '/gg4zZoTggZmpAQ32qIrP5dtnkEZ.jpg',
     genre_ids: [ 1, 4 ], // Action, Shooter
-    id: 891699,
+    gameId: 891699,
     original_language: 'en',
     original_title: 'Call of Duty: Modern Warfare III',
     overview: "The latest installment in the Modern Warfare franchise brings players back into the action with improved graphics, new multiplayer modes, and an intense single-player campaign focused on global warfare.",
@@ -101,7 +101,7 @@ export const games: Game[] = [
     adult: false,
     backdrop_path: '/fm6KqXpk3M2HVveHwCrBSSBaO0V.jpg',
     genre_ids: [ 3, 4 ], // Simulation, RPG
-    id: 872585,
+    gameId: 872585,
     original_language: 'en',
     original_title: 'Cities: Skylines II',
     overview: 'Build, manage, and grow a city from the ground up in this detailed simulation game. Players can design their city, manage resources, and balance the needs of the population while navigating urban challenges.',
@@ -117,7 +117,7 @@ export const games: Game[] = [
     adult: false,
     backdrop_path: '/1jITxVJhkiFJuQuj8NcPLmDNtJg.jpg',
     genre_ids: [ 2, 5 ], // RPG, Fantasy
-    id: 930564,
+    gameId: 930564,
     original_language: 'en',
     original_title: 'Final Fantasy XVI',
     overview: "The latest entry in the iconic RPG series, Final Fantasy XVI offers an immersive world with a deep narrative, real-time combat, and a darker tone. Players take control of Clive Rosfield as he navigates a world on the brink of collapse.",
