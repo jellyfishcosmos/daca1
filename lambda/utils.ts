@@ -44,6 +44,26 @@ import {
   
     return cookieMap;
   };
+  export const generateBatch = (data: Entity[]) => {
+    return data.map((e) => {
+      return generateItem(e);
+    });
+  };
+
+  type Entity = Game;  // NEW
+export const generateItem = (entity: Entity) => {
+  return {
+    PutRequest: {
+      Item: marshall(entity),
+    },
+  };
+};
+
+export enum Permissons {
+    READ,
+    WRITE,
+    READ_WRITE
+  }
   
   export const verifyToken = async (
     token: string,
