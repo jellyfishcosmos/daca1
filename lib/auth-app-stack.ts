@@ -71,5 +71,7 @@ export class AuthAppStack extends cdk.Stack {
     new AppApi(this, "AppApi", {
       userPoolId: userPoolId,
       userPoolClientId: userPoolClientId,
+      gamesTable: gamesTable,
+      gameCompanyTable: gameCompaniesTable,
     });
   }}
