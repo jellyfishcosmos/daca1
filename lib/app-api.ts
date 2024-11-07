@@ -58,7 +58,7 @@ const getGameByIdFn = new lambdanode.NodejsFunction(
   {
     architecture: lambda.Architecture.ARM_64,
     runtime: lambda.Runtime.NODEJS_18_X,
-    entry: `${__dirname}/../lambda/lambdas/rest/getGameById.ts`,
+    entry: `${__dirname}/../lambda/app-api/getGameById.ts`,
     timeout: cdk.Duration.seconds(10),
     memorySize: 128,
     environment: {
@@ -74,7 +74,7 @@ const getAllGamesFn = new lambdanode.NodejsFunction(
   {
     architecture: lambda.Architecture.ARM_64,
     runtime: lambda.Runtime.NODEJS_18_X,
-    entry: `${__dirname}/../lambda/lambdas/rest/getAllGames.ts`,
+    entry: `${__dirname}/../lambda/app-api/getAllGames.ts`,
     timeout: cdk.Duration.seconds(10),
     memorySize: 128,
     environment: {
@@ -103,7 +103,7 @@ new custom.AwsCustomResource(this, "gamesddbInitData", {
 const newGameFn = new lambdanode.NodejsFunction(this, "AddGameFn", {
   architecture: lambda.Architecture.ARM_64,
   runtime: lambda.Runtime.NODEJS_16_X,
-  entry: `${__dirname}/../lambda/lambdas/rest/addGame.ts`,
+  entry: `${__dirname}/../lambda/app-api/addGame.ts`,
   timeout: cdk.Duration.seconds(10),
   memorySize: 128,
   environment: {
@@ -115,7 +115,7 @@ const newGameFn = new lambdanode.NodejsFunction(this, "AddGameFn", {
 const deleteGameFn = new lambdanode.NodejsFunction(this, "DeleteGameFn", {
   architecture: lambda.Architecture.ARM_64,
   runtime: lambda.Runtime.NODEJS_18_X,
-  entry: `${__dirname}/../lambda/lambdas/rest/deleteGame.ts`,
+  entry: `${__dirname}/../lambda/app-api/deleteGame.ts`,
   timeout: cdk.Duration.seconds(10),
   memorySize: 128,
   environment: {
@@ -127,7 +127,7 @@ const deleteGameFn = new lambdanode.NodejsFunction(this, "DeleteGameFn", {
 const updateGameFn = new lambdanode.NodejsFunction(this, "UpdateGameFn", {
   architecture: lambda.Architecture.ARM_64,
   runtime: lambda.Runtime.NODEJS_18_X,
-  entry: `${__dirname}/../lambda/lambdas/rest/updateGame.ts`,
+  entry: `${__dirname}/../lambda/app-api/updateGame.ts`,
   timeout: cdk.Duration.seconds(10),
   memorySize: 128,
   environment: {
@@ -178,7 +178,7 @@ gameEndpoint.addMethod(
 
 const authorizerFn = new node.NodejsFunction(this, "AuthorizerFn", {
   ...appCommonFnProps,
-  entry: "./lambda/lambdas/auth/authorizer.ts",
+  entry: "./lambda/auth/authorizer.ts",
 });
 
 const requestAuthorizer = new apig.RequestAuthorizer(
