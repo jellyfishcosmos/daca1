@@ -7,10 +7,10 @@ import {
   } from "aws-lambda";
   
   import axios from "axios";
-  // const jwkToPem = require("jwk-to-pem");
-  // const jwt = require("jsonwebtoken");
-  import jwt from "jsonwebtoken";
+  import jwt from 'jsonwebtoken';
   import jwkToPem from "jwk-to-pem";
+  import { Game } from "../shared/types";
+  import { marshall } from "@aws-sdk/util-dynamodb";
   
   export type CookieMap = { [key: string]: string } | undefined;
   export type JwtToken = { sub: string; email: string } | null;
@@ -19,7 +19,7 @@ import {
       alg: string;
       e: string;
       kid: string;
-      kty: string;
+      kty: "RSA";
       n: string;
       use: string;
     }[];

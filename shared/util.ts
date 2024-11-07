@@ -13,4 +13,5 @@ export const generateItem = (entity: Entity) => {
 export const generateBatch = (data: Entity[]) => {
   return data.map((e) => {
     return generateItem(e);
-  });};
+  });
+};

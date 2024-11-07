@@ -12,64 +12,64 @@ export class AuthAppStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-   // TABLES
+    // GameCompanies table
+    const gameCompaniesTable = new dynamodb.Table(this, "GameCompaniesTable", {
+      partitionKey: { name: "companyId", type: dynamodb.AttributeType.NUMBER },
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      tableName: "GameCompanies",
+    });
 
-// GameCompanies table
-const gameCompaniesTable = new dynamodb.Table(this, "GameCompaniesTable", {
-  partitionKey: { name: "companyId", type: dynamodb.AttributeType.NUMBER },
-  removalPolicy: cdk.RemovalPolicy.DESTROY,
-  billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
-  tableName: "GameCompanies",
-});
+    // Games table
+    const gamesTable = new dynamodb.Table(this, "GamesTable", {
+      partitionKey: { name: "companyId", type: dynamodb.AttributeType.NUMBER },
+      sortKey: { name: "gameId", type: dynamodb.AttributeType.NUMBER },
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      tableName: "Games",
+    });
 
-// Games table
-const gamesTable = new dynamodb.Table(this, "GamesTable", {
-  partitionKey: { name: "companyId", type: dynamodb.AttributeType.NUMBER },
-  sortKey: { name: "gameId", type: dynamodb.AttributeType.NUMBER },
-  removalPolicy: cdk.RemovalPolicy.DESTROY,
-  billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
-  tableName: "Games",
-});
-
-// MARSHALLING DATA FOR TABLES
-new custom.AwsCustomResource(this, "GameCompaniesTableInitData", {
-  onCreate: {
-    service: "DynamoDB",
-    action: "batchWriteItem",
-    parameters: {
-      RequestItems: {
-        [gameCompaniesTable.tableName]: generateBatch(gameCompanies),
-        [gamesTable.tableName]: generateBatch(games),
+    // MARSHALLING DATA FOR TABLES
+    new custom.AwsCustomResource(this, "gamesTableInitData", {
+      onCreate: {
+        service: "DynamoDB",
+        action: "batchWriteItem",
+        parameters: {
+          RequestItems: {
+            [gamesTable.tableName]: generateBatch(games),
+            [gameCompaniesTable.tableName]: generateBatch(gameCompanies),
+          },
+        },
+        physicalResourceId: custom.PhysicalResourceId.of(
+          "gamesTableInitData"
+        ),
       },
-    },
-    physicalResourceId: custom.PhysicalResourceId.of("GameCompaniesGamesTableInitData"),
-  },
-  policy: custom.AwsCustomResourcePolicy.fromSdkCalls({
-    resources: [gameCompaniesTable.tableArn, gamesTable.tableArn],
-  }),
-});
+      policy: custom.AwsCustomResourcePolicy.fromSdkCalls({
+        resources: [gamesTable.tableArn, gameCompaniesTable.tableArn],
+      }),
+    });
 
-const userPool = new UserPool(this, "UserPool", {
-  signInAliases: { username: true, email: true },
-  selfSignUpEnabled: true,
-  removalPolicy: cdk.RemovalPolicy.DESTROY,
-});
+    // Cognito User Pool for authentication
+    const userPool = new UserPool(this, "UserPool", {
+      signInAliases: { username: true, email: true },
+      selfSignUpEnabled: true,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+    });
 
-const userPoolId = userPool.userPoolId;
+    const userPoolId = userPool.userPoolId;
+    const appClient = userPool.addClient("AppClient", {
+      authFlows: { userPassword: true },
+    });
 
-const appClient = userPool.addClient("AppClient", {
-  authFlows: { userPassword: true },
-});
+    const userPoolClientId = appClient.userPoolClientId;
 
-const userPoolClientId = appClient.userPoolClientId;
+    new AuthApi(this, "AuthServiceApi", {
+      userPoolId: userPoolId,
+      userPoolClientId: userPoolClientId,
+    });
 
-new AuthApi(this, "AuthServiceApi", {
-  userPoolId: userPoolId,
-  userPoolClientId: userPoolClientId,
-});
-
-new AppApi(this, "AppApi", {
-  userPoolId: userPoolId,
-  userPoolClientId: userPoolClientId,
-});
+    new AppApi(this, "AppApi", {
+      userPoolId: userPoolId,
+      userPoolClientId: userPoolClientId,
+    });
   }}

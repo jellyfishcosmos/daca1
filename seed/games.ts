@@ -132,53 +132,62 @@ export const games: Game[] = [
 ];
 
 export const gameCompanies: GameCompany[] = [
-  {
-    gameId: 1234,
-    companyName: "Bethesda Game Studios",
-    roleName: "Developer",
-    roleDescription: "Creators of the vast open-world universe of Starfield.",
-  },
-  {
-    gameId: 1234,
-    companyName: "Microsoft Studios",
-    roleName: "Publisher",
-    roleDescription: "Handles the distribution and global marketing of Starfield.",
-  },
-  {
-    gameId: 2345,
-    companyName: "Nintendo EPD",
-    roleName: "Developer",
-    roleDescription: "The legendary developers behind the Zelda franchise.",
-  },
-  {
-    gameId: 695721,
-    companyName: "Larian Studios",
-    roleName: "Developer",
-    roleDescription: "Creators of the expansive RPG Baldur's Gate 3.",
-  },
-  {
-    gameId: 1029575,
-    companyName: "Insomniac Games",
-    roleName: "Developer",
-    roleDescription: "Creators of the Spider-Man franchise and developers of Spider-Man 2.",
-  },
-  {
-    gameId: 787699,
-    companyName: "Blizzard Entertainment",
-    roleName: "Developer",
-    roleDescription: "Responsible for the design and development of Diablo IV.",
-  },
-  {
-    gameId: 891699,
-    companyName: "Infinity Ward",
-    roleName: "Developer",
-    roleDescription: "Creators of the Call of Duty series, including Modern Warfare III.",
-  },
-  {
-    gameId: 872585,
-    companyName: "Colossal Order",
-    roleName: "Developer",
-    roleDescription: "Developers of the Cities: Skylines franchise.",
-  }]
-
+    {
+      companyId: 1,  // Added companyId
+      gameId: 1234,
+      companyName: "Bethesda Game Studios",
+      roleName: "Developer",
+      roleDescription: "Creators of the vast open-world universe of Starfield.",
+    },
+    {
+      companyId: 2,  // Added companyId
+      gameId: 1234,
+      companyName: "Microsoft Studios",
+      roleName: "Publisher",
+      roleDescription: "Handles the distribution and global marketing of Starfield.",
+    },
+    {
+      companyId: 3,  // Added companyId
+      gameId: 2345,
+      companyName: "Nintendo EPD",
+      roleName: "Developer",
+      roleDescription: "The legendary developers behind the Zelda franchise.",
+    },
+    {
+      companyId: 4,  // Added companyId
+      gameId: 695721,
+      companyName: "Larian Studios",
+      roleName: "Developer",
+      roleDescription: "Creators of the expansive RPG Baldur's Gate 3.",
+    },
+    {
+      companyId: 5,  // Added companyId
+      gameId: 1029575,
+      companyName: "Insomniac Games",
+      roleName: "Developer",
+      roleDescription: "Creators of the Spider-Man franchise and developers of Spider-Man 2.",
+    },
+    {
+      companyId: 6,  // Added companyId
+      gameId: 787699,
+      companyName: "Blizzard Entertainment",
+      roleName: "Developer",
+      roleDescription: "Responsible for the design and development of Diablo IV.",
+    },
+    {
+      companyId: 7,  // Added companyId
+      gameId: 891699,
+      companyName: "Infinity Ward",
+      roleName: "Developer",
+      roleDescription: "Creators of the Call of Duty series, including Modern Warfare III.",
+    },
+    {
+      companyId: 8,  // Added companyId
+      gameId: 872585,
+      companyName: "Colossal Order",
+      roleName: "Developer",
+      roleDescription: "Developers of the Cities: Skylines franchise.",
+    }
+  ];
+  
 

@@ -1,7 +1,7 @@
 // export type Language = 'English' | 'Frenc
 
 export type Game = {
-  id: number;
+  gameId: number;
   backdrop_path: string;
   genre_ids: number[];
   original_language: string;
@@ -18,6 +18,7 @@ export type Game = {
 };
 
 export type GameCompany = {
+  companyId: number;
   gameId: number;
   companyName: string;
   roleName: string;
@@ -29,3 +30,20 @@ export type GameCompanyQueryParams = {
   companyName?: string;
   roleName?: string;
 };
+
+
+export type SignUpBody = {
+  username: string;
+  password: string;
+  email: string
+}
+
+export type ConfirmSignUpBody = {
+  username: string;
+  code: string;
+}
+
+export type SignInBody = {
+  username: string;
+  password: string;
+}
