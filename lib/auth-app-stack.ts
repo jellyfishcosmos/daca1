@@ -5,13 +5,15 @@ import { AuthApi } from "./auth-api";
 import { AppApi } from "./app-api";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as custom from "aws-cdk-lib/custom-resources";
-import { games, gameCompanies } from "../seed/games";
+import { games } from "../seed/games";
 import { generateBatch } from "../shared/util";
 import * as lambdanode from "aws-cdk-lib/aws-lambda-nodejs";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as apig from "aws-cdk-lib/aws-apigateway";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as apigateway from "aws-cdk-lib/aws-apigateway";
+
+//gameCompanies
 
 export class AuthAppStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {

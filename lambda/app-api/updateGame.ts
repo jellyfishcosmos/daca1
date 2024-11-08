@@ -8,17 +8,17 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
   // Print Event
   console.log("[EVENT]", JSON.stringify(event));
   
-  // Extract gameId from path parameters
-  const gameId = event.pathParameters?.gameId;
+  // Extract id from path parameters
+  const id = event.pathParameters?.id;
 
-  // Check for missing gameId
-  if (!gameId) {
+  // Check for missing id
+  if (!id) {
     return {
       statusCode: 400,
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({ message: "Missing gameId in path parameters" }),
+      body: JSON.stringify({ message: "Missing id in path parameters" }),
     };
   }
 
@@ -28,7 +28,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
   try {
     const command = new UpdateCommand({
         TableName: process.env.TABLE_NAME, // DynamoDB table name from environment
-        Key: { id: Number(gameId) }, // Use `id` instead of `gameId`, and ensure it's a number
+        Key: { id: Number(id) }, // Use `id` instead of `id`, and ensure it's a number
         UpdateExpression: "set title = :title, genre_ids = :genre_ids",
         ExpressionAttributeValues: {
           ":title": updateData.title,
@@ -47,13 +47,13 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        message: `Game with ID ${gameId} updated successfully.`,
+        message: `Game with ID ${id} updated successfully.`,
         updatedGame: response.Attributes,
       }),
     };
   } catch (error: unknown) {
     if (error instanceof Error) {
-      console.error(`[ERROR] Updating game with ID ${gameId}:`, error);
+      console.error(`[ERROR] Updating game with ID ${id}:`, error);
       return {
         statusCode: 500,
         headers: {
@@ -62,7 +62,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
         body: JSON.stringify({ error: error.message }),
       };
     } else {
-      console.error(`[ERROR] Updating game with ID ${gameId}:`, error);
+      console.error(`[ERROR] Updating game with ID ${id}:`, error);
       return {
         statusCode: 500,
         headers: {

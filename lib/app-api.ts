@@ -198,7 +198,7 @@ gamesEndpoint.addMethod(
   new apig.LambdaIntegration(getAllGamesFn, { proxy: true }),
 );
 
-const gameEndpoint = gamesEndpoint.addResource("{gameId}");
+const gameEndpoint = gamesEndpoint.addResource("{id}");
 gameEndpoint.addMethod(
   "GET",
   new apig.LambdaIntegration(getGameByIdFn, { proxy: true }),

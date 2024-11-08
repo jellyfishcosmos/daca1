@@ -11,10 +11,10 @@ export const handler: APIGatewayProxyHandler = async (event) => {
   try {
     console.log("Event: ", event);
 
-    const gameId = event?.pathParameters?.gameId;
+    const id = event?.pathParameters?.id;
     const language = event.queryStringParameters?.language;
 
-    if (!gameId) {
+    if (!id) {
       return {
         statusCode: 404,
         headers: {
@@ -38,7 +38,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     const reviewResponse = await ddbDocClient.send(
       new GetCommand({
         TableName: process.env.TABLE_NAME,
-        Key: { id: parseInt(gameId) },
+        Key: { id: parseInt(id) },
       })
     );
 

@@ -1,7 +1,7 @@
 // export type Language = 'English' | 'Frenc
 
 export type Game = {
-  gameId: number;
+  id: number;
   backdrop_path: string;
   genre_ids: number[];
   original_language: string;
@@ -17,16 +17,16 @@ export type Game = {
   vote_count: number;
 };
 
-export type GameCompany = {
-  companyId: number;
-  gameId: number;
-  companyName: string;
-  roleName: string;
-  roleDescription: string;
-};
+// export type GameCompany = {
+//   companyId: number;
+//   id: number;
+//   companyName: string;
+//   roleName: string;
+//   roleDescription: string;
+// };
 
 export type GameCompanyQueryParams = {
-  gameId: string;
+  id: string;
   companyName?: string;
   roleName?: string;
 };

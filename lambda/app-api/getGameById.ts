@@ -1,7 +1,7 @@
 import { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, GetCommand } from "@aws-sdk/lib-dynamodb";
-import { gameCompanies } from '../../seed/games';  
+//import { gameCompanies } from '../../seed/games';  
 
 const ddbDocClient = createDDbDocClient();
 
@@ -10,11 +10,11 @@ export const handler: APIGatewayProxyHandlerV2 = async (event, context) => {
     // Print Event
     console.log("[EVENT]", JSON.stringify(event));
 
-    // Retrieve gameId from path parameters
+    // Retrieve id from path parameters
     const parameters = event?.pathParameters;
-    const gameId = parameters?.gameId ? parseInt(parameters.gameId) : undefined;
+    const id = parameters?.id ? parseInt(parameters.id) : undefined;
 
-    if (!gameId) {
+    if (!id) {
       return {
         statusCode: 404,
         headers: {
@@ -31,7 +31,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event, context) => {
     const commandOutput = await ddbDocClient.send(
       new GetCommand({
         TableName: process.env.GAMES_TABLE,  // Make sure to set the correct table name
-        Key: { id: gameId },
+        Key: { id: id },
       })
     );
     console.log("GetCommand response: ", commandOutput);
@@ -50,11 +50,11 @@ export const handler: APIGatewayProxyHandlerV2 = async (event, context) => {
     // Prepare the response body
     let responseBody = { data: commandOutput.Item };
 
-    // If the query includes "companies=true", add the game companies
-    if (companiesIncluded) {
-      const companies = getGameCompanies(gameId);
-      responseBody.data.companies = companies;
-    }
+    // // If the query includes "companies=true", add the game companies
+    // if (companiesIncluded) {
+    //   const companies = getGameCompanies(id);
+    //   responseBody.data.companies = companies;
+    // }
 
     // Return Response
     return {
@@ -91,8 +91,8 @@ function createDDbDocClient() {
   return DynamoDBDocumentClient.from(ddbClient, translateConfig);
 }
 
-// Get the companies associated with a specific gameId
-function getGameCompanies(gameId: number) {
-  return gameCompanies.filter(company => company.gameId === gameId);
-}
+// // Get the companies associated with a specific id
+// function getGameCompanies(id: number) {
+//   return gameCompanies.filter(company => company.id === id);
+// }
 
