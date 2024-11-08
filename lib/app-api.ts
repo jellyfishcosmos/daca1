@@ -68,6 +68,14 @@ const getGameByIdFn = new lambdanode.NodejsFunction(
   }
 );
 
+const translationsTable = new dynamodb.Table(this, "TranslationsTable", {
+  billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+  partitionKey: { name: "OriginalText", type: dynamodb.AttributeType.STRING },
+  sortKey: { name: "TargetLanguage", type: dynamodb.AttributeType.STRING },
+  removalPolicy: cdk.RemovalPolicy.DESTROY,
+  tableName: "Translations",
+})
+
 const getAllGamesFn = new lambdanode.NodejsFunction(
   this,
   "GetAllGamesFn",
@@ -238,7 +246,7 @@ gameEndpoint.addMethod(
   new apig.LambdaIntegration(deleteGameFn, { proxy: true }),
 );
 
-const translateEndpoint = movieEndpoint.addResource("translate");
+const translateEndpoint = gameEndpoint.addResource("translate");
 translateEndpoint.addMethod(
   "GET",
   new apig.LambdaIntegration(getTranslationFn, { proxy: true }),
