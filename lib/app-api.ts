@@ -136,6 +136,28 @@ const updateGameFn = new lambdanode.NodejsFunction(this, "UpdateGameFn", {
   },
 });
 
+const getTranslationFn = new lambdanode.NodejsFunction(
+  this,
+  "GetTranslationFn",
+  {
+    architecture: lambda.Architecture.ARM_64,
+    runtime: lambda.Runtime.NODEJS_16_X,
+    entry: `${__dirname}/../lambda/app-api/translate.ts`,
+    timeout: cdk.Duration.seconds(10),
+    memorySize: 128,
+    environment: {
+      TABLE_NAME: gamesTable.tableName,
+      REGION: 'eu-west-1',
+    },
+  }
+);
+
+const translatePolicyStatement = new iam.PolicyStatement({
+  actions: ["translate:TranslateText"],
+  resources: ["*"],
+});
+
+getTranslationFn.addToRolePolicy(translatePolicyStatement);
 
 
 
@@ -145,6 +167,8 @@ gamesTable.grantReadData(getAllGamesFn);
 gamesTable.grantReadWriteData(newGameFn);
 gamesTable.grantReadWriteData(deleteGameFn);
 gamesTable.grantReadWriteData(updateGameFn);
+translationsTable.grantReadWriteData(getTranslationFn);  
+    gamesTable.grantReadWriteData(getTranslationFn);
 
 // REST API
 const api = new apig.RestApi(this, "RestAPI", {
@@ -212,5 +236,11 @@ gameEndpoint.addMethod(
 gameEndpoint.addMethod(
   "DELETE",
   new apig.LambdaIntegration(deleteGameFn, { proxy: true }),
+);
+
+const translateEndpoint = movieEndpoint.addResource("translate");
+translateEndpoint.addMethod(
+  "GET",
+  new apig.LambdaIntegration(getTranslationFn, { proxy: true }),
 );
   }}
