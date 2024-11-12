@@ -6,6 +6,7 @@ import {
   parseCookies,
   verifyToken,
 } from "./utils";
+//same as lab
 
 export const handler: APIGatewayProxyHandlerV2 = async function (event: any) {
   console.log("[EVENT]", JSON.stringify(event));

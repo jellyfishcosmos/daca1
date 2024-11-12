@@ -3,6 +3,9 @@ import { DeleteCommand, DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 const ddbDocClient = createDDbDocClient();
 
+
+//changed mainly from moviesAPI
+
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     // Print Event
     console.log("[EVENT]", JSON.stringify(event));

@@ -8,6 +8,7 @@ import { ConfirmSignUpBody } from "../../shared/types";
 
 import Ajv from "ajv";
 import schema from "../../shared/types.schema.json";
+//same as lab
 
 const ajv = new Ajv();
 const isValidBodyParams = ajv.compile(

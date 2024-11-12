@@ -12,6 +12,7 @@ import {
   import { Game } from "../shared/types";
   import { marshall } from "@aws-sdk/util-dynamodb";
   
+  //class to handle cookie mapping
   export type CookieMap = { [key: string]: string } | undefined;
   export type JwtToken = { sub: string; email: string } | null;
   export type Jwk = {
@@ -19,7 +20,7 @@ import {
       alg: string;
       e: string;
       kid: string;
-      kty: "RSA";
+      kty: "RSA"; //more secure 
       n: string;
       use: string;
     }[];

@@ -1,4 +1,5 @@
 import { APIGatewayProxyResult } from "aws-lambda";
+//same as lab
 
 exports.handler = async function (): Promise<APIGatewayProxyResult> {
   return {

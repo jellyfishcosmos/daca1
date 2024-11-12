@@ -64,7 +64,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
       };
     }
 
-    console.log("Text to translate: ", text);
+    console.log("Translate: ", text);
 
     const translateParams = {
       Text: text,

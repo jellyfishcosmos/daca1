@@ -1,4 +1,3 @@
-// export type Language = 'English' | 'Frenc
 
 export type Game = {
   id: number;
@@ -25,11 +24,11 @@ export type Game = {
 //   roleDescription: string;
 // };
 
-export type GameCompanyQueryParams = {
-  id: string;
-  companyName?: string;
-  roleName?: string;
-};
+// export type GameCompanyQueryParams = {
+//   id: string;
+//   companyName?: string;
+//   roleName?: string;
+// };
 
 
 export type SignUpBody = {

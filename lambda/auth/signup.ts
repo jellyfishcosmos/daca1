@@ -7,6 +7,7 @@ import {
 } from "@aws-sdk/client-cognito-identity-provider"; 
 import Ajv from "ajv";
 import schema from "../../shared/types.schema.json";
+//same as lab
 
 const ajv = new Ajv();
 const isValidBodyParams = ajv.compile(schema.definitions["SignUpBody"] || {});

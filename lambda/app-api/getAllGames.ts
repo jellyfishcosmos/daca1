@@ -2,6 +2,8 @@ import { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, ScanCommand } from "@aws-sdk/lib-dynamodb";
 
+//changed mainly from moviesAPI
+
 // Create DynamoDB client and document client
 const ddbClient = new DynamoDBClient({ region: process.env.REGION });
 
@@ -52,7 +54,6 @@ export const handler: APIGatewayProxyHandlerV2 = async (event, context) => {
   }
 };
 
-// Helper function to create a DynamoDB Document Client (if needed for further use)
 function createDDbDocClient() {
   const ddbClient = new DynamoDBClient({ region: process.env.REGION });
   const marshallOptions = {
