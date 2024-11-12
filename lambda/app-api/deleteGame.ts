@@ -7,17 +7,17 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     // Print Event
     console.log("[EVENT]", JSON.stringify(event));
     
-    // Extract movieId from path parameters
-    const movieId = event.pathParameters?.movieId;
+    // Extract gameId from path parameters
+    const gameId = event.pathParameters?.gameId;
   
-    // Check for missing movieId
-    if (!movieId) {
+    // Check for missing gameId
+    if (!gameId) {
       return {
         statusCode: 400,
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ message: "Missing movieId in path parameters" }),
+        body: JSON.stringify({ message: "Missing gameId in path parameters" }),
       };
     }
   
@@ -25,7 +25,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
       // Prepare the DeleteCommand
       const command = new DeleteCommand({
         TableName: process.env.TABLE_NAME, // DynamoDB table name from environment
-        Key: { id :Number(movieId)  }, // Primary key for the movie to be deleted
+        Key: { id :Number(gameId)  }, // Primary key for the game to be deleted
       });
   
       // Execute the delete command
@@ -36,11 +36,11 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ message: `Movie with ID ${movieId} deleted successfully.` }),
+        body: JSON.stringify({ message: `game with ID ${gameId} deleted successfully.` }),
       };
     } catch (error: unknown) {
       if (error instanceof Error) {
-        console.error(`[ERROR] Deleting movie with ID ${movieId}:`, error);
+        console.error(`[ERROR] Deleting game with ID ${gameId}:`, error);
         return {
           statusCode: 500,
           headers: {
@@ -49,7 +49,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
           body: JSON.stringify({ error: error.message }),
         };
       } else {
-        console.error(`[ERROR] Deleting movie with ID ${movieId}:`, error);
+        console.error(`[ERROR] Deleting game with ID ${gameId}:`, error);
         return {
           statusCode: 500,
           headers: {
